@@ -1,14 +1,15 @@
-const webpack = require('webpack');
-const path = require('path');
-const config = require('sapper/config/webpack.js');
-const pkg = require('./package.json');
+/* eslint-disable no-undef */
+const webpack = require('webpack')
+const path = require('path')
+const config = require('sapper/config/webpack.js')
+const pkg = require('./package.json')
 
-const mode = process.env.NODE_ENV;
-const dev = mode === 'development';
+const mode = process.env.NODE_ENV
+const dev = mode === 'development'
 
-const alias = { svelte: path.resolve('node_modules', 'svelte') };
-const extensions = ['.mjs', '.js', '.json', '.svelte', '.html'];
-const mainFields = ['svelte', 'module', 'browser', 'main'];
+const alias = { svelte: path.resolve('node_modules', 'svelte') }
+const extensions = ['.mjs', '.js', '.json', '.svelte', '.html']
+const mainFields = ['svelte', 'module', 'browser', 'main']
 
 module.exports = {
 	client: {
@@ -23,7 +24,8 @@ module.exports = {
 						loader: 'svelte-loader',
 						options: {
 							dev,
-							hydratable: true,
+              hydratable: true,
+              preprocess: require('svelte-preprocess')({ /* options */ }),
 							hotReload: false // pending https://github.com/sveltejs/svelte/issues/2377
 						}
 					}
@@ -74,4 +76,4 @@ module.exports = {
 		output: config.serviceworker.output(),
 		mode: process.env.NODE_ENV
 	}
-};
+}
